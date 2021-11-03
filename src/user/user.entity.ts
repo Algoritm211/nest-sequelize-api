@@ -9,12 +9,12 @@ import {
 } from 'sequelize-typescript';
 
 const tableOptions = {
-  timestamp: true,
+  timestamps: true,
   tableName: 'users',
 };
 
 @Table(tableOptions)
-export class User extends Model<User> {
+export class User extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

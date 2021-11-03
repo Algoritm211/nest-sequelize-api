@@ -16,7 +16,7 @@ const tableOptions = {
 @Table(tableOptions)
 export class User extends Model<User> {
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     allowNull: false,
     autoIncrement: true,
     unique: true,

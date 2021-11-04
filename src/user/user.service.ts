@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { IUser } from './interfaces/user.interface';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -25,5 +27,13 @@ export class UserService {
 
   async create(userData: CreateUserDto): Promise<User> {
     return this.userRepository.create(userData, { returning: true });
+  }
+
+  async update(id: string, userData: UpdateUserDto) {
+    const [, updatedUser] = await this.userRepository.update(userData, {
+      where: { id: id },
+      returning: true,
+    });
+    return updatedUser[0];
   }
 }

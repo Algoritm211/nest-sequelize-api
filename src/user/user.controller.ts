@@ -6,9 +6,11 @@ import {
   HttpStatus,
   Get,
   Param,
+  Put,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -28,5 +30,10 @@ export class UserController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() userDTO: CreateUserDto) {
     return this.userService.create(userDTO);
+  }
+
+  @Put(':id')
+  async update(@Body() userDTO: UpdateUserDto, @Param('id') id: string) {
+    return this.userService.update(id, userDTO);
   }
 }

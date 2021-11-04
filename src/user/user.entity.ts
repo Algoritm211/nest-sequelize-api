@@ -7,6 +7,7 @@ import {
   UpdatedAt,
   DeletedAt,
 } from 'sequelize-typescript';
+import { v4 as uuidv4 } from 'uuid';
 
 const tableOptions = {
   timestamps: true,
@@ -16,13 +17,13 @@ const tableOptions = {
 @Table(tableOptions)
 export class User extends Model {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     allowNull: false,
-    autoIncrement: true,
     unique: true,
     primaryKey: true,
+    defaultValue: uuidv4(),
   })
-  public id: number;
+  public id: string;
 
   @Column({
     type: DataType.CHAR(30),
@@ -33,16 +34,9 @@ export class User extends Model {
   @Column({
     type: DataType.CHAR(100),
     allowNull: false,
+    unique: true,
     validate: {
       isEmail: true,
-      isUnique: async (value: string, next) => {
-        const isExist = await User.findOne({ where: { email: value } });
-        if (isExist) {
-          const error = new Error('Email is already in DB');
-          next(error);
-        }
-        next();
-      },
     },
   })
   public email: string;

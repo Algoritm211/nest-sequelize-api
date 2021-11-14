@@ -36,4 +36,11 @@ export class UserService {
     });
     return updatedUser[0];
   }
+
+  async delete(id: string) {
+    const deletedUser = await this.userRepository.destroy({
+      where: { id: id },
+    });
+    console.log(deletedUser);
+  }
 }

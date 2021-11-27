@@ -12,7 +12,7 @@ export const databaseProvider = {
       port: +process.env.DB_PORT,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: 'users',
+      database: process.env.POSTGRES_DB,
     });
     sequelize.addModels([User]);
     await sequelize.sync();

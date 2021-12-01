@@ -3,6 +3,7 @@ version: '3'
 services:
   server:
     image: algoritm211/nestjs-rest-api
+    command: npm run start:dev
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -11,6 +12,9 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - .:/app
+      - ./app/node_modules
     ports:
       - "5000:5000"
     container_name: nestjs-rest-api

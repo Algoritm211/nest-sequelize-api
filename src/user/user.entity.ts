@@ -21,7 +21,7 @@ export class User extends Model {
     allowNull: false,
     unique: true,
     primaryKey: true,
-    defaultValue: uuidv4(),
+    defaultValue: () => uuidv4(),
   })
   public id: string;
 
